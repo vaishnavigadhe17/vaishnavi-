@@ -1,0 +1,96 @@
+In [5]:
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+In [9]:
+# Dataset path
+url="https://drive.google.com/file/d/1UIUSCHSz8FACkMive6k9C8ruvu-MBZR1/view?usp=sharing"
+path='https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
+data=pd.read_csv(path) 
+data.head()
+Out[9]:
+study_hours	student_marks
+0	6.83	78.50
+1	6.56	76.74
+2	NaN	78.68
+3	5.67	71.82
+4	8.67	84.19
+Discover and visulaize the data to gain insigthsIn [10]:
+data.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 200 entries, 0 to 199
+Data columns (total 2 columns):
+ #   Column         Non-Null Count  Dtype  
+---  ------         --------------  -----  
+ 0   study_hours    195 non-null    float64
+ 1   student_marks  200 non-null    float64
+dtypes: float64(2)
+memory usage: 3.2 KB
+In [13]:
+data.describe()
+Out[13]:
+study_hours	student_marks
+count	195.000000	200.00000
+mean	6.995949	77.93375
+std	1.253060	4.92570
+min	5.010000	68.57000
+25%	5.775000	73.38500
+50%	7.120000	77.71000
+75%	8.085000	82.32000
+max	8.990000	86.99000In [14]:
+plt.scatter(x=data.study_hours,y=data.student_marks)
+plt.xlabel("Study Hours")
+plt.ylabel("Study Time")
+plt.title("Study Hours Vs Student Marks ")
+plt.show()
+
+Prepare The Data For Machine Learning Algorithm
+In [16]:
+# Data Cleaning 
+data.isnull().sum()
+Out[16]:
+study_hours      5
+student_marks    0
+dtype: int64
+In [17]:
+data.mean()Out[17]:
+study_hours       6.995949
+student_marks    77.933750
+dtype: float64
+In [18]:
+data2=data.fillna(data.mean())
+In [19]:
+data2.isnull().sum()
+Out[19]:
+study_hours      0
+student_marks    0
+dtype: int64
+In [20]:
+data2.head()
+Out[20]:
+study_hours	student_marks
+0	6.830000	78.50
+1	6.560000	76.74
+2	6.995949	78.68
+3	5.670000	71.82
+4	8.670000	84.19
+In [40]:
+# split dataset for training
+x=data2.drop("student_marks", axis="columns")
+y=data2.drop("study_hours",axis="columns")
+print("shape of x",x.shape)
+print("shape of y", y.shape)
+shape of x (200, 1)
+shape of y (200, 1)
+In [41]:
+from sklearn.model_selection import train_test_spliX_train,X_test,Y_train,Y_test=train_test_split(x,y,test_size=0.2, random_state=51) # tes_size is defining how much data we want for testing so 0.2 means i am using 20 percent data for testing
+In [42]:
+print("shape of X Train",X_train.shape)
+print("shape of Y Train",Y_train.shape)
+print("shape of X Test", X_test.shape)
+print("shape of Y Test",Y_test.shape)
+shape of X Train (160, 1)
+shape of Y Train (160, 1)
+shape of X Test (40, 1)
+shape of Y Test (40, 1)
+In [ ]:
