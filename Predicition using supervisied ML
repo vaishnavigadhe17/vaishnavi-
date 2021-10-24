@@ -1,3 +1,6 @@
+BUSSINESS PROBLEM
+
+
 In [5]:
 import numpy as np
 import pandas as pd
@@ -15,8 +18,13 @@ study_hours	student_marks
 2	NaN	78.68
 3	5.67	71.82
 4	8.67	84.19
-Discover and visulaize the data to gain insigthsIn [10]:
-data.info()
+
+
+Discover and visulaize the data to gain
+
+
+
+insigthsIn [10]:data.info()
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 200 entries, 0 to 199
 Data columns (total 2 columns):
@@ -45,9 +53,12 @@ plt.title("Study Hours Vs Student Marks ")
 plt.show()
 
 Prepare The Data For Machine Learning Algorithm
+
+
+
 In [16]:
 # Data Cleaning 
-data.isnull().sum()
+data.isnull().sum() 
 Out[16]:
 study_hours      5
 student_marks    0
@@ -93,4 +104,152 @@ shape of X Train (160, 1)
 shape of Y Train (160, 1)
 shape of X Test (40, 1)
 shape of Y Test (40, 1)
-In [ ]:
+
+
+
+SELECT A MODEL AND TRAIN IT
+
+
+In [ ]:In [43]:
+# So in above scatter plot as we saw that when the value of x is increasing the value of y is also increasing in a linear format so we can use linear regression model
+from sklearn.linear_model import LinearRegression
+lr=LinearRegression()
+In [45]:
+lr.fit(X_train,Y_train)
+Out[45]:
+LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False)
+In [47]:
+lr.coef_
+Out[47]:
+array([[3.93571802]])
+In [48]:
+lr.intercept_
+Out[48]:
+array([50.44735504])
+In [57]:
+m= 3.93
+ c= 50.44y= m*12+c
+ y
+Out[57]:
+97.6
+In [60]:
+lr.predict([[4]])[0][0].round(2)
+Out[60]:
+66.19
+In [62]:
+y_pred=lr.predict(X_test)
+y_pred
+Out[62]:
+array([[83.11381458],
+       [78.9025963 ],
+       [84.57003024],
+       [85.82946001],
+       [84.72745896],
+       [80.75238377],
+       [72.84159055],
+       [71.66087515],
+       [73.23516235],
+       [71.66087515],
+       [73.47130543],
+       [76.38373677],
+       [73.23516235],
+       [73.58937697],
+       [82.95638585],
+       [70.40144538],
+       [73.23516235],
+       [78.74516758],
+       [75.55723598],
+       [82.68088559],  [76.65923703],
+       [70.48015974],
+       [74.77009238],
+       [77.98143645],
+       [85.59331693],
+       [82.56281405],
+       [76.42309395],
+       [85.0423164 ],
+       [78.39095296],
+       [81.38209865],
+       [81.73631327],
+       [83.15317176],
+       [82.20859943],
+       [81.10659839],
+       [73.58937697],
+       [71.1492318 ],
+       [71.89701823],
+       [81.53952737],
+       [72.60544747],
+       [71.93637541]])
+In [64]:
+pd.DataFrame(np.c_[X_test,Y_test,y_pred], columns=["study_hours","student_marks_original","student_marks_predicted"])
+Out[64]:
+study_hours	student_marks_original	student_marks_predicted
+0	8.300000	82.02	83.113815
+1	7.230000	77.55	78.902596
+2	8.670000	84.19	84.570030
+3	8.990000	85.46	85.829460
+4	8.710000	84.03	84.727459
+5	7.700000	80.81	80.752384
+6	5.690000	73.61	72.841591
+7	5.390000	70.90	71.660875
+8	5.790000	73.14	73.235162
+9	5.390000	73.02	71.660875
+10	5.850000	75.02	73.471305
+11	6.590000	75.37	76.383737
+12	5.790000	74.44	73.235162
+13	5.880000	73.40	73.589377
+14	8.260000	81.70	82.956386
+15	5.070000	69.27	70.401445
+16	5.790000	73.64	73.235162
+17	7.190000	77.63	78.745168
+18	6.380000	77.01	75.557236
+19	8.190000	83.08	82.680886
+20	6.660000	76.63	76.659237
+21	5.090000	72.22	70.480160
+22	6.180000	72.96	74.770092
+23	6.995949	76.14	77.981436
+24	8.930000	85.96	85.593317
+25	8.160000	83.36	82.562814
+26	6.600000	78.05	76.423094
+27	8.790000	84.60	85.042316
+28	7.100000	76.76	78.390953
+29	7.860000	81.24	81.382099
+30	7.950000	80.86	81.736313
+31	8.310000	82.69	83.153172
+32	8.070000	82.30	82.208599
+33	7.790000	79.17	81.106598
+34	5.880000	73.34	73.589377
+35	5.260000	71.86	71.149232
+36	5.450000	70.06	71.897018
+37	7.900000	80.76	81.539527
+38	5.630000	72.87	72.605447
+39	5.460000	71.10	71.936375In [67]:
+
+FINE TUNING THE MODEL
+
+lr.score(X_test,Y_test) # so our model is giving the accuracy of 95.14%
+Out[67]:
+0.9514124242154466
+In [70]:
+plt.scatter(X_test,Y_test)
+Out[70]:
+<matplotlib.collections.PathCollection at 0x7f1bbc82c080>
+
+In [74]:
+plt.scatter(X_test,Y_test)
+plt.plot(X_train,lr.predict(X_train),color="red")
+Out[74]:
+[<matplotlib.lines.Line2D at 0x7f1bbc7779b0>]
+
+
+PRESENT YOUR SOLUTION
+
+Out[76]:
+['Student_Marks_Predictor.pkl']
+In [77]:
+model=joblib.load("Student_Marks_Predictor.pkl")
+In [78]:
+model.predict([[5]])
+Out[78]:
+array([[70.12594512]])
+
+
